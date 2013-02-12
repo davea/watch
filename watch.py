@@ -6,10 +6,10 @@ import time
 from fsevents import Stream, Observer
 from ScriptingBridge import SBApplication
 
-FILE_TYPES = ['css', 'html', 'htm', 'php', 'rb', 'erb', 'less', 'js', 'pyc']
+FILE_TYPES = ['css', 'html', 'htm', 'php', 'rb', 'erb', 'less', 'js', 'py']
 
 FILE_DELAYS = {
-    'pyc': 1.5
+    'py': 3.5
 }
 
 def reload_chrome():
