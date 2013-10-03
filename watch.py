@@ -8,6 +8,9 @@ from ScriptingBridge import SBApplication
 
 FILE_TYPES = ['css', 'html', 'htm', 'php', 'rb', 'erb', 'less', 'js', 'py']
 
+# Some files need a delay before refresh for the changes to become apparent.
+# e.g. Django's runserver takes a few moments to notice and reload the new code.
+# This is slightly hacky, but does work...
 FILE_DELAYS = {
     'py': 3.5
 }
