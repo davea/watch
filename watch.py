@@ -23,7 +23,7 @@ def reload_chrome():
     for window in chrome.windows():
         for tab in window.tabs():
             if sys.argv[2] in tab.URL():
-                print "Reloading {0}".format(tab.URL())
+                print "Reloading {}".format(tab.URL())
                 tab.reload()
 
 def reload_safari():
@@ -34,7 +34,7 @@ def reload_safari():
     for window in safari.windows():
         for tab in window.tabs():
             if sys.argv[2] in tab.URL():
-                print "Reloading {0}".format(tab.URL())
+                print "Reloading {}".format(tab.URL())
                 tab.reload()
     
 
@@ -50,9 +50,9 @@ def event_callback(event):
 
 def main():
     if len(sys.argv) != 3:
-        print "Usage: {0} <path> <keyword>".format(sys.argv[0])
+        print "Usage: {} <path> <keyword>".format(sys.argv[0])
         sys.exit(1)
-    print "Watching {0} for changes...".format(os.path.abspath(sys.argv[1]))
+    print "Watching {} for changes...".format(os.path.abspath(sys.argv[1]))
     observer = Observer()
     stream = Stream(event_callback, sys.argv[1], file_events=True)
     observer.schedule(stream)
