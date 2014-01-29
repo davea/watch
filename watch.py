@@ -15,6 +15,14 @@ FILE_DELAYS = {
     'py': 3.5
 }
 
+# File event flags that will cause a refresh. Correspond to those defined in FSEvents.h.
+FLAGS = (
+    0x100,  # kFSEventStreamEventFlagItemCreated
+    0x200,  # kFSEventStreamEventFlagItemRemoved
+    0x1000, # kFSEventStreamEventFlagItemModified
+    0x2,    # kFSEventStreamEventFlagUserDropped - seems to be needed too
+)
+
 def reload_chrome():
     chrome = SBApplication.applicationWithBundleIdentifier_("com.google.Chrome")
     if not chrome:
@@ -42,8 +50,8 @@ def event_callback(event):
     if "." not in event.name:
         return
     file_type = event.name.split(".")[-1].lower()
-    if file_type in FILE_TYPES and (event.mask & 0x100 or event.mask & 0x2 or event.mask & 0x1000 or event.mask & 0x200):
         print "Detected change in {0}".format(event.name)
+    if file_type in FILE_TYPES and any(event.mask & flag for flag in FLAGS):
         if file_type in FILE_DELAYS:
             time.sleep(FILE_DELAYS[file_type])
         reload_chrome()
