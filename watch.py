@@ -51,7 +51,7 @@ def reload_safari():
         for tab in window.tabs():
             if sys.argv[2] in tab.URL():
                 print "Reloading Safari: {}".format(tab.URL())
-                tab.reload()
+                tab.setURL_(tab.URL())
 browser_reloaders['safari'] = reload_safari
     
 
