@@ -3,11 +3,21 @@ watch
 
 Refreshes your browser when source files change during local development.
 
-By default will refresh Chrome, but can refresh Safari also - see the `event_callback` function.
+By default will refresh Chrome, but can refresh Safari too.
 
 ##Usage
 
-    watch.py <path_to_watch> <url_match_to_refresh>
+    usage: watch.py [-b {chrome,safari}] path keyword
+
+    Refresh browser tabs when local files change.
+
+    positional arguments:
+      path                  The directory to watch for changes.
+      keyword               Tabs with this keyword in their URL will be refreshed.
+
+    optional arguments:
+      -b {chrome,safari}, --browser {chrome,safari}
+                            Which browser to refresh.
 
 e.g. to refresh any browser tabs with `localhost` in the URL when a source file in the current directory changes:
 
