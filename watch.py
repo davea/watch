@@ -81,7 +81,13 @@ def main():
     observer = Observer()
     stream = Stream(event_callback_partial, sys.argv[1], file_events=True)
     observer.schedule(stream)
-    observer.run()
+    try:
+        observer.start()
+        while True:
+            time.sleep(86400)
+    except KeyboardInterrupt:
+        observer.stop()
+
 
 if __name__ == '__main__':
     main()
