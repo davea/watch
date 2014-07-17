@@ -10,7 +10,7 @@ from ScriptingBridge import SBApplication
 
 from fsevents import Stream, Observer
 
-FILE_TYPES = ['css', 'html', 'htm', 'php', 'rb', 'erb', 'less', 'js', 'py']
+FILE_TYPES = ['css', 'scss', 'html', 'htm', 'php', 'rb', 'erb', 'less', 'js', 'py', 'jst', 'md']
 
 # Some files need a delay before refresh for the changes to become apparent.
 # e.g. Django's runserver takes a few moments to notice and reload the new code.
