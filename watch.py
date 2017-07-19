@@ -34,24 +34,24 @@ browser_reloaders = {}
 def reload_chrome(keyword):
     chrome = SBApplication.applicationWithBundleIdentifier_("com.google.Chrome")
     if not chrome:
-        print "Chrome doesn't appear to be running!"
+        print("Chrome doesn't appear to be running!")
         return
     for window in chrome.windows():
         for tab in window.tabs():
             if keyword in tab.URL():
-                print "Reloading Chrome: {}".format(tab.URL())
+                print("Reloading Chrome: {}".format(tab.URL()))
                 tab.reload()
 browser_reloaders['chrome'] = reload_chrome
 
 def reload_safari(keyword):
     safari = SBApplication.applicationWithBundleIdentifier_("com.apple.Safari")
     if not safari:
-        print "Safari doesn't appear to be running!"
+        print("Safari doesn't appear to be running!")
         return
     for window in safari.windows():
         for tab in window.tabs():
             if keyword in tab.URL():
-                print "Reloading Safari: {}".format(tab.URL())
+                print("Reloading Safari: {}".format(tab.URL()))
                 tab.setURL_(tab.URL())
 browser_reloaders['safari'] = reload_safari
     
@@ -61,14 +61,14 @@ def event_callback(event, browsers, keyword):
         return
     file_type = event.name.split(".")[-1].lower()
     if file_type in FILE_TYPES and any(event.mask & flag for flag in FLAGS):
-        print "Detected change in {}".format(event.name)
+        print("Detected change in {}".format(event.name))
         if file_type in FILE_DELAYS:
             time.sleep(FILE_DELAYS[file_type])
         for browser in browsers:
             if browser in browser_reloaders:
                 browser_reloaders[browser](keyword)
             else:
-                print "Can't refresh unknown browser {}".format(browser)
+                print("Can't refresh unknown browser {}".format(browser))
 
 def main():
     parser = argparse.ArgumentParser(description="Refresh browser tabs when local files change.")
@@ -76,7 +76,7 @@ def main():
     parser.add_argument("keyword", help="Tabs with this keyword in their URL will be refreshed.")
     parser.add_argument("-b", "--browser", help="Which browser to refresh.", choices=sorted(browser_reloaders.keys()), default="chrome")
     args = parser.parse_args()
-    print "Watching {} for changes...".format(os.path.abspath(args.path))
+    print("Watching {} for changes...".format(os.path.abspath(args.path)))
     event_callback_partial = partial(event_callback, browsers=(args.browser,), keyword=args.keyword)
     observer = Observer()
     stream = Stream(event_callback_partial, sys.argv[1], file_events=True)
